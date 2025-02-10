@@ -10,18 +10,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void _login() {
+    // Lógica para iniciar sesión
   }
 
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
+  void _register() {
+    // Lógica para registrar
   }
 
   @override
@@ -35,28 +29,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            ElevatedButton(
+              onPressed: _login,
+              child: const Text('Iniciar Sesión'),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FloatingActionButton(
-                  onPressed: _incrementCounter,
-                  tooltip: 'Increment',
-                  child: const Icon(Icons.add),
-                ),
-                const SizedBox(width: 20),
-                FloatingActionButton(
-                  onPressed: _decrementCounter,
-                  tooltip: 'Decrement',
-                  child: const Icon(Icons.remove),
-                ),
-              ],
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _register,
+              child: const Text('Registrar'),
             ),
           ],
         ),
