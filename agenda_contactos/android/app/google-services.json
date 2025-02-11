@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "873691682297",
+    "project_id": "agendacontactos-daf80",
+    "storage_bucket": "agendacontactos-daf80.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873691682297:android:6d134603945819c0ae1928",
+        "android_client_info": {
+          "package_name": "com.example.agenda_contactos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANii82YvKyfIsIgA0uSQIFgP1dgVosups"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
