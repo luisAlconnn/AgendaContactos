@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});  // Marca este constructor como 'const'
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -28,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registro de Usuario"),
+        title: const Text("Registro de Usuario"),  // Agregar 'const' aquí también
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,25 +39,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             TextField(
               controller: emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(  // Aquí también puedes usar 'const'
                 labelText: 'Correo Electrónico',
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),  // 'const' en SizedBox
             TextField(
               controller: passwordController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(  // Aquí también
                 labelText: 'Contraseña',
                 border: OutlineInputBorder(),
               ),
               obscureText: true,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _register,
-              child: Text('Registrar'),
+              child: const Text('Registrar'),  // 'const' aquí también
             ),
           ],
         ),
