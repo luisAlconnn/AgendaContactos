@@ -14,12 +14,35 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final RealtimeDatabaseService databaseService = RealtimeDatabaseService();
+  final TextEditingController searchController = TextEditingController();
+  String searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(50.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: TextField(
+              controller: searchController,
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value.toLowerCase();
+                });
+              },
+              decoration: InputDecoration(
+                hintText: 'Search contacts...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
       body: StreamBuilder<List<Contact>>(
         stream: databaseService.getContacts(),
@@ -31,7 +54,15 @@ class _MyHomePageState extends State<MyHomePage> {
             return const Center(child: Text('No contacts added.'));
           }
 
-          final contacts = snapshot.data!;
+          final contacts = snapshot.data!
+              .where((contact) => contact.name.toLowerCase().contains(searchQuery) ||
+              contact.phone.toLowerCase().contains(searchQuery))
+              .toList();
+
+          if (contacts.isEmpty) {
+            return const Center(child: Text('No matching contacts found.'));
+          }
+
           return ListView.builder(
             itemCount: contacts.length,
             itemBuilder: (context, index) {
