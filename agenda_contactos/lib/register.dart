@@ -19,8 +19,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      // Si el registro es exitoso, puedes redirigir a otra pantalla o mostrar un mensaje de éxito.
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Registro exitoso')));
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'email-already-in-use':
+          errorMessage = 'El correo electrónico ya está en uso.';
+          break;
+        case 'invalid-email':
+          errorMessage = 'El correo electrónico no es válido.';
+          break;
+        case 'weak-password':
+          errorMessage = 'La contraseña es demasiado débil.';
+          break;
+        default:
+          errorMessage = 'Error desconocido: ${e.message}';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage)));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
     }
