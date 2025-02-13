@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'pantalla_contactos.dart';
+
 
 
 class LoginScreen extends StatefulWidget {
@@ -28,18 +30,16 @@ class _LoginScreenState extends State<LoginScreen> {
           password: _passwordController.text.trim(),
         );
 
-        // Redirigir a la pantalla de interfaz tras iniciar sesión
-        /*
+
+        // Redirigir a MyHomePage tras iniciar sesión
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ListScreen(),
+            builder: (context) => MyHomePage(title: 'Contactos'),
           ),
-
-
         );
 
-         */
+
       } on FirebaseAuthException catch (e) {
         String errorMessage;
 
