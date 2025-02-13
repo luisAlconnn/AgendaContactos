@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'pantalla_contactos.dart';
 
-
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -30,16 +28,12 @@ class _LoginScreenState extends State<LoginScreen> {
           password: _passwordController.text.trim(),
         );
 
-
-        // Redirigir a MyHomePage tras iniciar sesión
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => MyHomePage(title: 'Contactos'),
           ),
         );
-
-
       } on FirebaseAuthException catch (e) {
         String errorMessage;
 
@@ -59,6 +53,32 @@ class _LoginScreenState extends State<LoginScreen> {
           _isLoading = false;
         });
       }
+    }
+  }
+
+  Future<void> _resetPassword() async {
+    if (_emailController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ingresa tu correo para restablecer la contraseña.')),
+      );
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text.trim());
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Se ha enviado un correo para restablecer la contraseña.')),
+      );
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      if (e.code == 'user-not-found') {
+        errorMessage = 'Este correo no está registrado en Firebase.';
+      } else {
+        errorMessage = 'Error: ${e.message}';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
     }
   }
 
@@ -117,7 +137,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: _loginUser,
                 child: Text("Iniciar Sesión"),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
+              TextButton(
+                onPressed: _resetPassword,
+                child: Text("¿Olvidaste tu contraseña?"),
+              ),
             ],
           ),
         ),
