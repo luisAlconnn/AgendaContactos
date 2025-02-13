@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'login.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});  // Marca este constructor como 'const'
 
@@ -20,6 +22,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         password: passwordController.text.trim(),
       );
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Registro exitoso')));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {
