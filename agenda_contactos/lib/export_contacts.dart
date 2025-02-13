@@ -1,50 +1,50 @@
 import 'dart:convert';
-import 'dart:io' show File; // Usar solo en plataformas móviles/desktop
-import 'dart:html' as html; // Usar en web
+import 'dart:io' show File; // Solo para los duros en móvil/desktop 📱💻
+import 'dart:html' as html; // Para los que andan webeando 🌍
 import 'package:csv/csv.dart';
 import 'package:path_provider/path_provider.dart';
 import 'contactos.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ExportContacts {
-  Future<void> exportContactsToCSV(List<Contact> contacts) async {
+  Future<void> exportContactsToCSV(List<Contact> contactosBellacos) async {
     try {
-      // Crear encabezados y filas con los datos
-      List<List<String>> data = [
-        ["ID", "Name", "Phone", "Photo URL"], // Encabezados
-        ...contacts.map((contact) => [
-          contact.id,
-          contact.name,
-          contact.phone,
-          contact.photoUrl,
+      // 🎤 Vamos a romper con estos datos 🔥
+      List<List<String>> datosCSV = [
+        ["ID", "Nombre", "Teléfono", "Foto URL"], // Encabezados con flow 💎
+        ...contactosBellacos.map((contacto) => [
+          contacto.id,
+          contacto.name,
+          contacto.phone,
+          contacto.photoUrl,
         ]),
       ];
 
-      // Convertir los datos a formato CSV
-      String csvData = const ListToCsvConverter().convert(data);
+      // Transformamos el mambo a formato CSV 🕺
+      String csvFinal = const ListToCsvConverter().convert(datosCSV);
 
       if (kIsWeb) {
-        // Para la web: Descarga el archivo CSV en el navegador
-        final bytes = utf8.encode(csvData);
+        // 🌍 Para la web: Se descarga solo como si fuera un hit mundial 🎶
+        final bytes = utf8.encode(csvFinal);
         final blob = html.Blob([bytes]);
         final url = html.Url.createObjectUrlFromBlob(blob);
-        final anchor = html.AnchorElement(href: url)
+        final ancla = html.AnchorElement(href: url)
           ..target = 'blank'
-          ..download = 'contacts.csv'
+          ..download = 'contactos_bellacos.csv'
           ..click();
         html.Url.revokeObjectUrl(url);
-        print("Archivo CSV descargado en el navegador.");
+        print("🔥 CSV descargado como hit viral en el navegador 🔥");
       } else {
-        // Para plataformas móviles o desktop: Guardar en documentos
-        final directory = await getApplicationDocumentsDirectory();
-        final path = "${directory.path}/contacts.csv";
-        final file = File(path);
+        // 📱 Para móvil o desktop: Lo guardamos pa' la historia 📂
+        final directorio = await getApplicationDocumentsDirectory();
+        final rutaArchivo = "${directorio.path}/contactos_bellacos.csv";
+        final archivo = File(rutaArchivo);
 
-        await file.writeAsString(csvData);
-        print("Archivo CSV guardado en: $path");
+        await archivo.writeAsString(csvFinal);
+        print("✅ Archivo CSV guardado con flow en: $rutaArchivo");
       }
     } catch (e) {
-      print("Error al exportar los contactos: $e");
+      print("💀 Error al exportar los contactos: $e. No salió como queríamos, pero seguimos bellacos. 💀");
     }
   }
 }
