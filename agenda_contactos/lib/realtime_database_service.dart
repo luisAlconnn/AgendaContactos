@@ -4,6 +4,8 @@ import 'contactos.dart';
 class RealtimeDatabaseService {
   final DatabaseReference contactsRef = FirebaseDatabase.instance.refFromURL('https://agendacontactos-daf80-default-rtdb.europe-west1.firebasedatabase.app').child('contacts');
 
+  get databaseReference => null;
+
   Future<void> addContact(Contact contact) {
     return contactsRef.child(contact.id).set(contact.toMap());
   }
@@ -14,6 +16,11 @@ class RealtimeDatabaseService {
 
   Future<void> deleteContact(String id) {
     return contactsRef.child(id).remove();
+  }
+  // Método para obtener todos los contactos
+  Future<List<Contact>> getAllContacts() async {
+    final snapshot = await databaseReference.once(); // Reemplaza con tu lógica de Firebase
+    return snapshot.children.map((e) => Contact.fromMap(e.value as Map<String, dynamic>)).toList();
   }
 
   Stream<List<Contact>> getContacts() {
