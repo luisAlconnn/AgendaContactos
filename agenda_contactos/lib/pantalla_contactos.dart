@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'contactos.dart';
 import 'contactos_form.dart';
 import 'realtime_database_service.dart';
+import 'export_contacts.dart'; // Importa la clase ExportContacts
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -16,12 +17,22 @@ class _MyHomePageState extends State<MyHomePage> {
   final RealtimeDatabaseService databaseService = RealtimeDatabaseService();
   final TextEditingController searchController = TextEditingController();
   String searchQuery = '';
+  final ExportContacts exportContacts = ExportContacts(); // Instancia para exportar contactos
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.download),
+            onPressed: () async {
+              final contacts = await databaseService.getContacts().first;
+              exportContacts.exportContactsToCSV(contacts); // Llama a la función para exportar contactos
+            },
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: Padding(
