@@ -8,13 +8,11 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-
   path_provider: ^2.0.2
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
   csv: ^5.0.1
-
   sqflite: ^2.4.1
   sqflite_common_ffi: ^2.1.0+3
   sqflite_common_ffi_web: ^0.4.5+4
@@ -32,6 +30,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
 
 flutter:
   uses-material-design: true

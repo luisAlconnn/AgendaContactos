@@ -32,4 +32,13 @@ class RealtimeDatabaseService {
       return contactsList;
     });
   }
+
+  Future<List<Contact>> getContactsOnce() async {
+    final snapshot = await contactsRef.once();
+    final contactsMap = snapshot.snapshot.value as Map<dynamic, dynamic>;
+    final contactsList = contactsMap.entries.map((entry) {
+      return Contact.fromMap(Map<String, dynamic>.from(entry.value));
+    }).toList();
+    return contactsList;
+  }
 }
