@@ -127,7 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        _buildTextField(controller: emailController, labelText: 'Correo Electrónico'),
+                        _buildTextField(controller: emailController, labelText: 'Correo Electrónicoo'),
                         const SizedBox(height: 16),
                         _buildTextField(controller: passwordController, labelText: 'Contraseña', isPassword: true),
                       ],
