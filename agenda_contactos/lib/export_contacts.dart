@@ -33,7 +33,7 @@ class ExportContacts {
           ..download = 'contactos_bellacos.csv'
           ..click();
         html.Url.revokeObjectUrl(url);
-        print("🔥 CSV descargado como hit viral en el navegadorrr 🔥");
+        print("🔥 CSV descargado como hit viral en el navegadoorrr 🔥");
       } else {
         // 📱 Para móvil o desktop: Lo guardamos pa' la historia 📂
         final directorio = await getApplicationDocumentsDirectory();
