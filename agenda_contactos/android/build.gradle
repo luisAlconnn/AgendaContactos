@@ -1,6 +1,21 @@
+buildscript {
+    ext.kotlin_version = '1.8.21' // Añade o actualiza esta línea para especificar la versión de Kotlin
+
+    repositories {
+        google() // Repositorio de Google
+        mavenCentral() // Repositorio Maven Central
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.2' // Versión actualizada del plugin de Gradle
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // Plugin de Kotlin con la versión especificada arriba
+        classpath 'com.google.gms:google-services:4.3.15' // Dependencia necesaria para Google Services
+
+    }
+}
+
 allprojects {
     repositories {
-        google()
+        google() // Asegúrate de tener esto aquí
         mavenCentral()
     }
 }
@@ -15,9 +30,4 @@ subprojects {
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
-}
-buildscript {
-    dependencies {
-        classpath 'com.google.gms:google-services:4.3.10' // Asegúrate de tener la versión correcta
-    }
 }

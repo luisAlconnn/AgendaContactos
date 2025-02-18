@@ -69,21 +69,25 @@ class _ContactFormState extends State<ContactForm> {
       }
 
       final newContact = Contact(
-        id: widget.contact?.id ?? databaseService.contactsRef.push().key!,
+        id: widget.contact?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
         name: _nameController.text,
         phone: _phoneController.text,
         photoUrl: _photoUrl ?? '',
       );
 
-      if (widget.contact == null) {
-        await databaseService.addContact(newContact);
-        print("🎉 Nuevo contacto guardado en la playlist.");
-      } else {
-        await databaseService.updateContact(newContact);
-        print("🔄 Contacto actualizado con flow.");
-      }
+      try {
+        if (widget.contact == null) {
+          await databaseService.addContact(newContact);
+          print("🎉 Nuevo contacto guardado en la playlist.");
+        } else {
+          await databaseService.updateContact(newContact);
+          print("🔄 Contacto actualizado con flow.");
+        }
 
-      Navigator.pop(context);
+        Navigator.pop(context);
+      } catch (e) {
+        print("❌ Error al guardar el contacto: $e");
+      }
     }
   }
 
